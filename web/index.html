@@ -20,6 +20,80 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Feed</title>
+  <style>
+    /* CSS for the feed box and images */
+    .feed-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .feed-box {
+      width: 100%;
+      height: 300px; /* Set a fixed height for the image container */
+      overflow: hidden; /* Hide overflow to ensure cropped images don't spill out */
+      border-radius: 10px; /* Optional: Add rounded corners */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for a clean look */
+    }
+
+    .feed-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensure the image covers the entire container */
+      object-position: center; /* Center the image content if cropped */
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Your Feed</h1>
+  <div id="feed" class="feed-container">
+    <!-- Dynamic content will be added here -->
+  </div>
+
+  <script>
+    // JavaScript to dynamically render posts with images
+    const posts = [
+      { id: 1, image_url: "https://via.placeholder.com/800x600" },
+      { id: 2, image_url: "https://via.placeholder.com/1200x800" },
+      { id: 3, image_url: "https://via.placeholder.com/600x400" },
+      { id: 4, image_url: "https://via.placeholder.com/1000x700" }
+    ];
+
+    const feedContainer = document.getElementById("feed");
+
+    // Render posts dynamically
+    posts.forEach(post => {
+      const postBox = document.createElement("div");
+      postBox.classList.add("feed-box");
+
+      const postImage = document.createElement("img");
+      postImage.src = post.image_url;
+      postImage.alt = `Post ${post.id}`;
+
+      // Add fallback for missing images
+      postImage.onerror = function () {
+        this.src = "https://via.placeholder.com/300x300?text=No+Image";
+      };
+
+      // Append the image to the feed box
+      postBox.appendChild(postImage);
+
+      // Append the feed box to the container
+      feedContainer.appendChild(postBox);
+    });
+  </script>
+</body>
+</html>
+
+
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -57,5 +131,6 @@
       });
     });
   </script>
+
 </body>
 </html>
